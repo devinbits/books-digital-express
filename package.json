@@ -1,0 +1,27 @@
+{
+  "name": "books-digital-express",
+  "version": "0.0.1",
+  "description": "books-digital api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devinbits/books-digital-express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devinbits/books-digital-express/issues"
+  },
+  "homepage": "https://github.com/devinbits/books-digital-express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
