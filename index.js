@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const userRouter = require('./routes/users')
+
 const app = express();
 const port = 3000;
 
@@ -9,6 +12,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use('/users', userRouter)
 
 app.get('/', (req, res) => {
   res.json({'message': 'ok'});
