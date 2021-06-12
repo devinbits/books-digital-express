@@ -2,7 +2,7 @@ function getPageOffset(currentPage = 1, listPerPage) {
   return (currentPage - 1) * [listPerPage];
 }
 
-function emptyOrRows(rows) {
+function getRowsSafe(rows) {
   if (!rows) {
     return [];
   }
@@ -11,5 +11,5 @@ function emptyOrRows(rows) {
 
 module.exports = {
   getPageOffset,
-  emptyOrRows,
+  getRowsSafe,
 };

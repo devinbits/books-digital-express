@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getAllUsers } = require("../services/users");
+const { getAllUsers, getUserById } = require("../services/users");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -10,4 +10,17 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-module.exports = router
+router.get("/:id", async (req, res, next) => {
+  try {
+    const user = await getUserById(req.params.id);
+    res.json(user);
+  } catch (err) {
+    console.error(
+      `Error while getting User with id ${req.params.id} `,
+      err.message
+    );
+    next(err);
+  }
+});
+
+module.exports = router;
