@@ -1,9 +1,12 @@
 const router = require("express").Router();
-const { getAllUsers, getUserById } = require("../services/users");
+const { getUsers, getUserById } = require("../services/users");
 
 router.get("/", async (req, res, next) => {
   try {
-    res.json(await getAllUsers(req.query.page));
+    const { page, limit, name } = req.query;
+    let queryParms = {};
+    if (name) queryParms.name = name;
+    res.json(await getUsers(queryParms, page, limit));
   } catch (err) {
     console.error(`Error while getting Users `, err.message);
     next(err);
@@ -12,7 +15,8 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await getUserById(req.params.id);
+    const { id } = req.params;
+    const user = await getUserById(id);
     res.json(user);
   } catch (err) {
     console.error(
