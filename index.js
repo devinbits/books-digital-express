@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const userRouter = require("./routes/users");
 const bookRouter = require("./routes/books");
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 3000;
 
