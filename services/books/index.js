@@ -1,9 +1,8 @@
 const { query } = require("../db");
-const { listPerPage } = require("../../utils/config");
+const { getRowsSafe, getQuery, getAllById } = require("../../utils/helper");
 const { TABLES } = require("../../utils/constants");
-const { getPageOffset, getRowsSafe, getQuery } = require("../../utils/helper");
 
-async function getAllBooks(projections = {}, page = 1, limit = listPerPage) {
+async function getBooks(projections = {}, page = 1, limit) {
   const { queryStr, queryParms } = getQuery(
     TABLES.BOOKS,
     projections,
@@ -11,11 +10,17 @@ async function getAllBooks(projections = {}, page = 1, limit = listPerPage) {
     page,
     limit
   );
-  console.log(queryStr, queryParms);
   const books = await getRowsSafe(query(queryStr, queryParms));
   return books;
 }
 
+async function getBooksById(id = 0) {
+  const queryStr = getAllById(TABLES.BOOKS);
+  const result = await query(queryStr, [id]);
+  return { result };
+}
+
 module.exports = {
-  getAllBooks,
+  getBooks,
+  getBooksById,
 };
