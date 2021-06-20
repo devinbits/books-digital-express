@@ -1,11 +1,11 @@
 const { query } = require("../db");
-const { getRowsSafe, getQuery, getAllById } = require("../../utils/helper");
+const { getRowsSafe, getQuery, getByColumn } = require("../../utils/helper");
 const { TABLES } = require("../../utils/constants");
 
 async function getPublisherById(id = 0) {
-  const queryStr = getAllById(TABLES.PUBLISHERS);
+  const queryStr = getByColumn(TABLES.PUBLISHERS, { id });
   const result = await query(queryStr, [id]);
-  return { result };
+  return result[0];
 }
 
 async function getPublishers(projections = {}, page = 1, limit) {

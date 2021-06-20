@@ -1,5 +1,5 @@
 const { query } = require("../db");
-const { getRowsSafe, getQuery, getAllById } = require("../../utils/helper");
+const { getRowsSafe, getQuery, getByColumn } = require("../../utils/helper");
 const { TABLES } = require("../../utils/constants");
 
 async function getBooks(projections = {}, page = 1, limit) {
@@ -15,9 +15,9 @@ async function getBooks(projections = {}, page = 1, limit) {
 }
 
 async function getBooksById(id = 0) {
-  const queryStr = getAllById(TABLES.BOOKS);
+  const queryStr = getByColumn(TABLES.BOOKS, { id });
   const result = await query(queryStr, [id]);
-  return { result };
+  return result[0];
 }
 
 module.exports = {

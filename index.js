@@ -1,31 +1,50 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-
+const passport = require("passport");
+const { configurePassport, authenticate } = require("./midlewares/passport");
+const errorHandler = require("./midlewares/errorHandler");
 const userRouter = require("./routes/users");
 const bookRouter = require("./routes/books");
 const publisherRouter = require("./routes/publishers");
+const authRouter = require("./routes/auth");
 
 const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
-app.use(bodyParser.json());
+// Pass the global passport object into the configuration function
+configurePassport(passport);
+// initialize the passport object on every request
+app.use(passport.initialize());
+
+app.use(express.json());
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 );
 
-app.use("/users", userRouter);
-app.use("/books", bookRouter);
-app.use("/publishers", publisherRouter);
+/**
+ * -------------- ROUTES ----------------
+ */
+app.use("/auth", authRouter);
+app.use("/users", authenticate(passport), userRouter);
+app.use("/books", authenticate(passport), bookRouter);
+app.use("/publishers", authenticate(passport), publisherRouter);
 
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
 
+/**
+ * -------------- Error Handler ----------------
+ */
+app.use(errorHandler);
+
+/**
+ * -------------- SERVER ----------------
+ */
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
