@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const { configurePassport, authenticate } = require("./midlewares/passport");
+const rateLimit = require("express-rate-limit");
 const errorHandler = require("./midlewares/errorHandler");
 const userRouter = require("./routes/users");
 const bookRouter = require("./routes/books");
@@ -11,7 +12,20 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 80;
+
+/**
+ * -------------- REQ LIMIT ----------------
+ */
+
+const reqLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minutes
+  max: 15, // limit each IP to 15 requests per windowMs
+});
+app.use(reqLimiter);
+
+/**
+ * -------------- PASSPORT AUTH ----------------
+ */
 
 // Pass the global passport object into the configuration function
 configurePassport(passport);
@@ -34,7 +48,7 @@ app.use("/books", authenticate(passport), bookRouter);
 app.use("/publishers", authenticate(passport), publisherRouter);
 
 app.get("/", (req, res) => {
-  res.json({ message: "ok" });
+  res.json({ message: "Welcome app is running!" });
 });
 
 /**
@@ -45,6 +59,7 @@ app.use(errorHandler);
 /**
  * -------------- SERVER ----------------
  */
+const port = process.env.PORT || 80;
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at port ${port}`);
 });

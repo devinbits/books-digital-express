@@ -5,6 +5,7 @@ const { TABLES } = require("../../utils/constants");
 async function getBooks(projections = {}, page = 1, limit) {
   const { queryStr, queryParms } = getQuery(
     TABLES.BOOKS,
+    '*',
     projections,
     "name",
     page,

@@ -21,8 +21,12 @@ function getRowsSafe(rows) {
   return rows;
 }
 
+/** This function generates and returns QueryString
+ *@table @selections @attributes cannot be undefined or null
+ */
 const getQuery = (
   table,
+  selections,
   attributes,
   orderBy,
   page = 1,
@@ -35,7 +39,7 @@ const getQuery = (
   const attributeNames = Object.keys(attributes);
 
   // build query sections
-  const selection = `SELECT * FROM ${table} `;
+  const selection = `SELECT ${selections} FROM ${table} `;
   const projections = attributeNames.reduce(
     (acc, property, i) =>
       `${acc} ${i == 0 ? "WHERE" : ""} ${[property]} like ? ${
