@@ -18,7 +18,6 @@ const configurePassport = (passport) => {
       // use the `sub` property on the JWT as userId
       try {
         const user = await getUserById(jwt_payload.sub);
-        console.log("user-jwt", user);
         if (user) {
           return done(null, user);
         } else {

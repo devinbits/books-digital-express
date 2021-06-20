@@ -20,7 +20,6 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    console.log("body", req.body);
     if (!req.body.email) throw new Error("No user recived! Invalid request");
     const result = await loginUser(req.body);
     res.json(result);

@@ -29,11 +29,11 @@ app.use(
  * -------------- ROUTES ----------------
  */
 app.use("/auth", authRouter);
-app.use("/users", authenticate(passport), userRouter);
+app.use("/users", userRouter);
 app.use("/books", authenticate(passport), bookRouter);
 app.use("/publishers", authenticate(passport), publisherRouter);
 
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
   res.json({ message: "ok" });
 });
 
@@ -46,5 +46,5 @@ app.use(errorHandler);
  * -------------- SERVER ----------------
  */
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at port ${port}`);
 });
