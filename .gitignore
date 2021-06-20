@@ -106,3 +106,6 @@ dist
 # env file
 .env
 package-lock.json
+
+#keys
+*.pem

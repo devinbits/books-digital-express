@@ -3,9 +3,10 @@ const { getUsers, getUserById } = require("../services/users");
 
 router.get("/", async (req, res, next) => {
   try {
-    const { page, limit, name } = req.query;
+    const { page, limit, name, email } = req.query;
     let queryParms = {};
     if (name) queryParms.name = name;
+    if (email) queryParms.email = email;
     res.json(await getUsers(queryParms, page, limit));
   } catch (err) {
     console.error(`Error while getting Users `, err.message);
