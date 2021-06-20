@@ -29,7 +29,7 @@ app.use(
  * -------------- ROUTES ----------------
  */
 app.use("/auth", authRouter);
-app.use("/users", userRouter);
+app.use("/users", authenticate(passport), userRouter);
 app.use("/books", authenticate(passport), bookRouter);
 app.use("/publishers", authenticate(passport), publisherRouter);
 
