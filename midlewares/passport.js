@@ -1,7 +1,7 @@
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const { getUserById } = require("../services/users");
-const { getKeys } = require('../utils/helper')
+const { getKeys } = require("../utils/helper");
 
 // At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
 const options = {
