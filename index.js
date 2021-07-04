@@ -45,16 +45,14 @@ app.use(
  * -------------- ROUTES ----------------
  */
 
-app.use(express.static(path.join(__dirname, "express-console/build")));
-
 app.use("/auth", authRouter);
 app.use("/users", authenticate(passport), userRouter);
 app.use("/books", authenticate(passport), bookRouter);
 app.use("/publishers", authenticate(passport), publisherRouter);
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "express-console/build", "index.html"));
-});
+app.get("/", (req, res) =>
+  res.redirect("https://devinbits.github.io/books-digital-console")
+);
 
 /**
  * -------------- Error Handler ----------------
