@@ -25,7 +25,7 @@ async function getUserByEmail(email = "") {
 async function getUsers(projections = {}, page = 1, limit) {
   const { queryStr, queryParms } = getQuery(
     TABLES.USERS,
-    'id, name, phone, national_id AS nationalId',
+    "id, name, phone, national_id AS nationalId",
     projections,
     "id",
     page,
@@ -73,7 +73,7 @@ async function registerNewUser(user) {
 
   if (result && result.affectedRows) {
     const { token, expiresIn } = issueJWT(result.insertId);
-    return { success: true, token, expiresIn };
+    return { success: true, token, expiresIn, id: result.insertId };
   }
   return {
     success: false,

@@ -7,6 +7,8 @@ const userRouter = require("./routes/users");
 const bookRouter = require("./routes/books");
 const publisherRouter = require("./routes/publishers");
 const authRouter = require("./routes/auth");
+const path = require("path");
+const cors = require("cors");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -22,7 +24,7 @@ const reqLimiter = rateLimit({
   max: 15, // limit each IP to 15 requests per windowMs
 });
 app.use(reqLimiter);
-
+app.use(cors());
 /**
  * -------------- PASSPORT AUTH ----------------
  */
@@ -42,13 +44,16 @@ app.use(
 /**
  * -------------- ROUTES ----------------
  */
+
+app.use(express.static(path.join(__dirname, "express-console/build")));
+
 app.use("/auth", authRouter);
 app.use("/users", authenticate(passport), userRouter);
 app.use("/books", authenticate(passport), bookRouter);
 app.use("/publishers", authenticate(passport), publisherRouter);
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome app is running!" });
+  res.sendFile(path.join(__dirname, "express-console/build", "index.html"));
 });
 
 /**

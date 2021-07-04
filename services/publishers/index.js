@@ -11,7 +11,7 @@ async function getPublisherById(id = 0) {
 async function getPublishers(projections = {}, page = 1, limit) {
   const { queryStr, queryParms } = getQuery(
     TABLES.PUBLISHERS,
-    '*',
+    "*",
     projections,
     "name",
     page,
