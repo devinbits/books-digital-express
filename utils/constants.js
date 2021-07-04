@@ -1,12 +1,12 @@
 const TABLES = {
-  USERS: "Users",
-  BOOKS: "Books",
-  LANGAUGES: "Languages",
-  GERNE: "Genre",
-  PUBLISHERS: "Publishers",
-  BOOK_LANGUAGES: "BookLanguages",
-  SUBSCRIPTION_TYPE: "SubscriptionType",
-  USER_BOOKS: "UserBooks",
+  USERS: "users",
+  BOOKS: "books",
+  LANGAUGES: "languages",
+  GERNE: "genre",
+  PUBLISHERS: "publishers",
+  BOOK_LANGUAGES: "booklanguages",
+  SUBSCRIPTION_TYPE: "subscriptiontype",
+  USER_BOOKS: "userbooks",
 };
 
 const LIMIT = "LIMIT ?,?";
